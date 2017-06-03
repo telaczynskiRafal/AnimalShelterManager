@@ -1,33 +1,36 @@
 package animalShelterManager;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class Animal {
-	private String name;
-	private String type;
+	private final StringProperty name;
+	private final StringProperty type;
 
 	public Animal(String name, String type) {
-		this.name = name;
-		this.type = type;
+		this.name = new SimpleStringProperty(name);
+		this.type = new SimpleStringProperty(type);
 	}
 
 	public String getName() {
-		return name;
+		return name.get();
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String animalName) {
+		name.set(animalName);
 	}
 
 	public String getType() {
-		return type;
+		return type.get();
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setType(String animalType) {
+		type.set(animalType);
 	}
 
 	@Override
 	public String toString() {
-		return type.toLowerCase() + " named " + name;
+		return type.get().toLowerCase() + " named " + name;
 	}
 
 }
