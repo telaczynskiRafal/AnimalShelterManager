@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import animalShelterManager.Domain.Animal;
+
 public class AnimalShelterApp {
 	private static Shelter shelter = new Shelter("Shelter", 5);
 
@@ -31,7 +33,7 @@ public class AnimalShelterApp {
 				List<Animal> animalsToRemove = new ArrayList<>();
 				int numberOfAnimalsToRemove = 0;
 				for (Animal animal : animals) {
-					if (animal.getName().equals(name)) {
+					if (animal.getNameProperty().equals(name)) {
 						animalsToRemove.add(animal);
 						numberOfAnimalsToRemove++;
 					}

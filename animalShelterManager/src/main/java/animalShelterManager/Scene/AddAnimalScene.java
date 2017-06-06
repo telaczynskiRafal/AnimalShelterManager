@@ -1,10 +1,15 @@
-package animalShelterManager;
+package animalShelterManager.Scene;
 
+import animalShelterManager.Main;
+import animalShelterManager.Domain.Animal;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -30,6 +35,7 @@ public class AddAnimalScene {
 		addAnimalStage.setTitle("Add an animal");
 		addAnimalStage.setMinHeight(200);
 		addAnimalStage.setMinWidth(200);
+		addAnimalStage.setResizable(false);
 
 		addAnimalButton = new Button("Add an Animal");
 		addAnimalButton.setMinWidth(80);
@@ -62,15 +68,26 @@ public class AddAnimalScene {
 		Scene scene = new Scene(border, 300, 200);
 		addAnimalStage.setScene(scene);
 
-		
-
 		addAnimalButton.setOnAction(e -> {
-			String animalName = animalNameTextField.getText();
-			String animalType = animalTypChoiceBox.getValue().toString();
-			animal = new Animal(animalName, animalType.toLowerCase());
-			Main.animals.add(animal);
-			Main.animalsInShelterTableView.setItems(Main.animals);
-			addAnimalStage.close();
+			if (animalNameTextField == null || animalNameTextField.getText().trim().isEmpty()) {
+				Alert alert = new Alert(AlertType.INFORMATION, "You have to specify animal's name!", ButtonType.OK);
+				alert.setTitle(null);
+				alert.setHeaderText(null);
+				alert.showAndWait();
+			} else if (!animalNameTextField.getText().chars().allMatch(Character::isLetter)) {
+				Alert alert = new Alert(AlertType.INFORMATION,
+						"Wrong input format! Animal's name can contain letters only!", ButtonType.OK);
+				alert.setTitle(null);
+				alert.setHeaderText(null);
+				alert.showAndWait();
+			} else {
+				String animalName = animalNameTextField.getText();
+				String animalType = animalTypChoiceBox.getValue().toString();
+				animal = new Animal(animalName, animalType.toLowerCase());
+				Main.animals.add(animal);
+				Main.animalsInShelterTableView.setItems(Main.animals);
+				addAnimalStage.close();
+			}
 		});
 
 		addAnimalStage.showAndWait();

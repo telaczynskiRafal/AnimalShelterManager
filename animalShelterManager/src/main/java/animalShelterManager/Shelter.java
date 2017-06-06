@@ -3,6 +3,8 @@ package animalShelterManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import animalShelterManager.Domain.Animal;
+
 public class Shelter {
 	private String name;
 	private int capacity;
